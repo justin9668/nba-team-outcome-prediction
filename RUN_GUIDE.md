@@ -2,12 +2,14 @@ How To
 1. Clone the Repository
 
 git clone https://github.com/justin9668/cs506-final-project
+
 cd cs506-final-project
 
 2. Create and Activate a Python Environment
 Using conda:
 
 conda create -n nba python=3.11 -y
+
 conda activate nba
 
 3. Install Dependencies 
@@ -15,7 +17,9 @@ conda activate nba
 pip install -r requirements.txt
 
 3.1 Install Kernel (for running notebooks on VSCode)
+
 pip install ipykernel
+
 python -m ipykernel install --user --name nba --display-name "Python (nba)"
 
 4. Pull Raw NBA Data
