@@ -4,4 +4,3 @@ tqdm>=4.66
 python-dateutil>=2.8.2
 matplotlib>=3.8
 seaborn>=0.13
-nbstripout>=0.6
