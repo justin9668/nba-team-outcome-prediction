@@ -1,4 +1,4 @@
-## **Midterm Report Outline - _NBA Team Outcome Prediction_**
+## **Midterm Report - _NBA Team Outcome Prediction_**
 
 ### **Introduction**
 
