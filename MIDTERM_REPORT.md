@@ -1,6 +1,12 @@
-## **Midterm Report - _NBA Team Outcome Prediction_**
+# Midterm Report - _NBA Team Outcome Prediction_
 
-### **Introduction**
+## Presentation
+
+[![Watch the presentation](https://img.youtube.com/vi/[REPLACE BRACKETS WITH VIDEO ID]/0.jpg)](https://www.youtube.com/watch?v=[REPLACE BRACKETS WITH VIDEO ID])
+
+*A 5-minute presentation covering preliminary visualizations, data processing, modeling methods, and early results from our project.*
+
+## Introduction
 
 The goal of this project is to build a data-driven model that predicts the outcome of NBA games using publicly available team-level statistics. Specifically, we aim to predict each team's total points scored in a given game and then determine the winner based on those predicted scores. This design allows us to treat the problem as both a regression task (predicting numeric scores) and a classification task (predicting winners), providing a richer and more interpretable analysis of game outcomes.
 
@@ -8,7 +14,7 @@ Predicting team outcomes in the NBA is an interesting problem because basketball
 
 Our project adopts a two-stage design. First, we use regression models to predict the total points each team will score in a specific matchup. Then, we compare the two predicted scores to infer the game winner, effectively creating a derived classification prediction. This structure simplifies the modeling process, keeps the data consistent across tasks, and enables us to analyze both quantitative accuracy and win prediction accuracy within one unified framework.
 
-### **Data Description**
+## Data Description
 
 We obtain our data directly from the NBA's official statistics API through the open-source Python package **nba_api**. This API provides access to detailed game-level information for all teams and games in a given season. Using the LeagueGameFinder endpoint, we collect data for every regular-season game in the 2023-24 NBA season.
 
@@ -16,7 +22,7 @@ Each observation in our dataset represents a single team's performance in one ga
 
 The scope of our data is limited to one complete NBA regular season to ensure consistency and manageability. This allows us to train models that learn from the majority of games and then test their ability to generalize to unseen games within the same season. Each team-game pair forms one row in the dataset, resulting in approximately twice as many rows as total games played in the season.
 
-### **Data Processing**
+## Data Processing
 
 Our data collection pipeline begins with automated retrieval of game-level statistics using the nba_api.stats.endpoints.leaguegamefinder function. We specify the season and season type ("Regular Season") to ensure consistent data coverage. The raw API output is converted into a Pandas DataFrame for further processing.
 
@@ -26,29 +32,29 @@ For normalization, numerical features such as shooting percentages, rebounds, an
 
 Finally, we split the dataset chronologically to simulate real-world forecasting conditions. The first 80 percent of games (by date) are used for model training, while the final 20 percent are reserved for testing. This prevents data leakage from future games and provides a realistic evaluation of model performance on unseen matchups.
 
-### **Preliminary Visualizations**
+## Preliminary Visualizations
 
 To gain an initial understanding of our dataset, we conducted exploratory data analysis (EDA) to identify general scoring patterns and relationships among key variables. The following visualizations summarize the main trends observed so far.
 
-**Points Distribution**
+### Points Distribution
 
 ![Points Distribution](img/points_distribution.png)
 
 The distribution of total team points per game shows that most teams score between approximately 100 and 120 points. This suggests that the overall scoring environment in the NBA is relatively consistent across teams and games, with only a few outliers that likely correspond to overtime or exceptionally low-scoring matches.
 
-**Home vs. Away Performance**
+### Home vs. Away Performance
 
 ![home_vs_away_analysis](img/home_vs_away_analysis.png)
 
 Teams tend to perform slightly better when playing at home. The average team score is a few points higher in home games than in away games, supporting the commonly observed home-court advantage in professional basketball.
 
-**Rest Days and Performance**
+### Rest Days and Performance
 
 ![rest_days_analysis](img/rest_days_analysis.png)
 
 Although we examined the relationship between rest days and team performance, the results suggest that the effect of rest is limited at the team level. Across different rest-day categories, both total points and field goal percentages remain relatively stable, indicating that teams tend to maintain consistent performance even during back-to-back games. This may reflect the NBA's deep rosters and player management strategies that mitigate fatigue effects.
 
-**Feature Correlations**
+### Feature Correlations
 
 ![coorelation_heatmap](img/correlation_heatmap.png)
 
@@ -58,7 +64,7 @@ Turnovers (TOV) display a weak negative correlation with points scored (-0.17), 
 
 Among opponent-related variables, strong correlation (0.79) between opponent turnovers and steals occurs because most opponent turnovers result directly from successful steals. In other words, steals are a primary source of forced turnovers in basketball. The negative correlation (-0.54) between opponent rebounds and field goal percentage suggests that teams with higher shooting efficiency allow fewer opponent rebounds. When a team makes more of its shots, there are fewer missed attempts available for the opposing team to rebound.
 
-### **Modeling Methods**
+## Modeling Methods
 
 To improve stability and reduce the potential influence of multicollinearity among correlated features, we then trained a Ridge Regression model with a regularization parameter of α = 1.0. No Lasso regression or other nonlinear models were applied at this stage. Missing feature values were handled by dropping incomplete rows, and no scaling or pipeline preprocessing was applied, as both Linear and Ridge Regression are generally robust to moderate differences in feature scale.
 
@@ -66,7 +72,7 @@ Model performance was evaluated on a held-out test set using Mean Absolute Error
 
 To further interpret model performance, we generated several visualizations, including model comparison bar charts, predicted vs. actual scatter plots, and error distribution plots by team. These results confirm that the regression models are both consistent and interpretable, providing a solid foundation for the next stage of analysis.
 
-### **Preliminary Results**
+## Preliminary Results
 
 We evaluated our regression models on a held-out test set using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) as the main performance metrics. Both Linear and Ridge Regression were compared against a simple baseline that predicts each team's score using its season-average points. The results are summarized below.
 
@@ -80,8 +86,6 @@ The results show that both linear models significantly outperform the baseline, 
 
 Several visualizations were generated to assess model behavior.
 
-
-
 ![model_comparison](img/model_comparison.png)
 
 The figure compares the Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE) of the baseline, Linear Regression, and Ridge Regression models on the test set. Both regression models achieve substantially lower errors than the baseline, reducing MAE from 9.91 to about 4.1 and RMSE from 12.35 to about 5.2. The nearly identical results between Linear and Ridge Regression indicate that regularization has minimal effect at this stage, suggesting the dataset is well-behaved without severe multicollinearity. Overall, the models demonstrate strong predictive accuracy relative to the simple season-average baseline.
@@ -94,13 +98,11 @@ Overall, these preliminary results confirm that our data pipeline and regression
 
 ![error_analysis](img/error_analysis.png)
 
-
-
 The left panel shows the overall distribution of prediction errors, calculated as the difference between actual and predicted team points. The distribution is approximately centered around zero, with most errors falling within ±10 points, indicating that the regression models do not exhibit strong bias toward over- or under-prediction.
 
 The right panel presents the **average prediction error by team**. While most teams have near-zero mean errors, a few teams show small consistent deviations, suggesting that certain play styles or scoring patterns are not yet fully captured by the current linear model. High-scoring, fast-paced teams tend to be slightly underpredicted, whereas more defensive teams are slightly overpredicted. Overall, the model errors are well balanced and confirm that the regression framework performs reliably across teams.
 
-### **Code Implementation**
+## Code Implementation
 
 Our codebase is organized to ensure a clear and reproducible workflow from data collection to model evaluation. All code and instructions are available in our GitHub repository.
 
@@ -116,11 +118,11 @@ Dependencies are listed in requirements.txt, and the RUN_GUIDE.md file provides 
 
 This structure ensures that any user can reproduce the full data pipeline and modeling process from a clean environment, verifying both data integrity and model results.
 
-**Next Steps**
+### Next Steps
 
 In the next stage, we will implement direct winner prediction by deriving outcomes from regression scores and adding a Logistic Regression classifier for comparison. We plan to tune the Ridge α parameter, introduce time-aware cross-validation, and test additional features such as team pace, defensive metrics, and interaction terms. Further work will focus on improving model interpretability with coefficient and feature importance analysis, expanding error analysis by team and over time, and cleaning the notebooks and source code for consistency and clarity.
 
-### **References**
+## References
 
 Boston University, Department of Computer Science. (n.d.). _CS506: Data Science Tools and Applications - Course website_. Retrieved October 26, 2025, from [https://gallettilance.github.io/](https://gallettilance.github.io/)
 
@@ -129,4 +131,3 @@ Boston University, Department of Computer Science. (n.d.). _CS506 Final Project 
 Swar, G., et al. (n.d.). _nba_api: An API client package to access the NBA Stats API_ \[GitHub repository\]. Retrieved October 26, 2025, from [https://github.com/swar/nba_api](https://github.com/swar/nba_api)
 
 National Basketball Association. (n.d.). _NBA Stats - Official statistics portal_. Retrieved October 26, 2025, from [https://www.nba.com/stats/](https://www.nba.com/stats/)
-
