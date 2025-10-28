@@ -2,7 +2,7 @@
 
 ## Presentation
 
-[![Watch the presentation](https://img.youtube.com/vi/[REPLACE BRACKETS WITH VIDEO ID]/0.jpg)](https://www.youtube.com/watch?v=[REPLACE BRACKETS WITH VIDEO ID])
+[![Watch the presentation](https://img.youtube.com/vi/zJFJc-XAkzs/0.jpg)](https://www.youtube.com/watch?v=zJFJc-XAkzs)
 
 *A 5-minute presentation covering preliminary visualizations, data processing, modeling methods, and early results from our project.*
 
