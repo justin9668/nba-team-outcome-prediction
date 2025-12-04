@@ -1,3 +1,4 @@
+[View Final Report](final_report.md)  
 [View Midterm Report](MIDTERM_REPORT.md)
 
 # NBA Team Outcome Prediction Project
