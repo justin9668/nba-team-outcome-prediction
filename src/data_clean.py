@@ -54,6 +54,20 @@ def main():
     df = pd.read_csv(args.infile, dtype={"GAME_ID": str})
     df = normalize_columns(df)
     df = parse_game_date_col(df)
+    
+    # --- keep only NBA teams ---
+    NBA_TEAMS = {
+        "ATL","BOS","BKN","CHA","CHI","CLE","DAL","DEN",
+        "DET","GSW","HOU","IND","LAC","LAL","MEM","MIA",
+        "MIL","MIN","NOP","NYK","OKC","ORL","PHI","PHX",
+        "POR","SAC","SAS","TOR","UTA","WAS",
+    }
+    before_rows = len(df)
+    df = df[df["team_abbreviation"].isin(NBA_TEAMS)].copy()
+    print(f"[FILTER] NBA teams only: {before_rows} → {len(df)} rows")
+    print(f"[FILTER] Unique teams: {sorted(df['team_abbreviation'].unique())}")
+    # --- end ---
+    
     df = add_home_flag(df)
     df = add_rest_days(df)
     df = attach_opponent(df)
