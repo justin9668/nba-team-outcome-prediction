@@ -12,3 +12,5 @@ clean_data:
 verify:
 	python src/verify.py
 
+test:
+	$(PY) -m pytest tests/ -v

@@ -73,15 +73,17 @@ This runs the unit tests in `tests/` and validates the pipeline. The same tests 
 
 ---
 
-## Test Code and Continuous Integration (TO-DO)
+## Test Code and Continuous Integration
 
-The project includes a focused test suite and a CI workflow to ensure stability.
+The project includes a focused test suite with 27 tests across three files.
 
 **Test suite**
-- `tests/test_data_pipeline.py`  
-  Confirms the cleaned dataset exists, verifies that games appear twice, and checks that required modeling features are included.
-- `tests/test_model_sanity.py`  
-  Fits a small Linear Regression model on a subset of data and checks prediction shapes.
+- `tests/test_data_pipeline.py` (15 tests)  
+  Validates data existence, structure, integrity checks (W/L consistency, plus/minus symmetry, points matching, home/away balance), percentage ranges, and realistic NBA statistics.
+- `tests/test_data_cleaning.py` (8 tests)  
+  Tests individual cleaning functions: column normalization, home/away flag detection, and rest days calculation.
+- `tests/test_model_sanity.py` (4 tests)  
+  Verifies model training, reasonable predictions (70-160 points), and improvement over baseline.
 
 **Makefile integration**  
 `make test` runs all tests using `pytest`.
