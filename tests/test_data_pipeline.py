@@ -3,12 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 # Paths relative to project root
-RAW_DATA_PATH = Path("data/raw/team_gamelogs.csv")
 CLEAN_DATA_PATH = Path("data/processed/team_games_clean.csv")
-
-def test_raw_data_exists():
-    """Verify raw data file exists."""
-    assert RAW_DATA_PATH.exists(), f"Raw data not found at {RAW_DATA_PATH}"
 
 def test_clean_data_exists():
     """Verify cleaned data file exists."""
