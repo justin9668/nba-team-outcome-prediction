@@ -63,7 +63,7 @@ The script checks that:
 
 Open `notebooks/04_model.ipynb` and execute all cells. This trains the Linear Regression model, evaluates performance, writes predictions to `data/processed/test_predictions.csv`, and saves the model to `models/final_linear_regression.joblib`.
 
-**8. Run automated tests** (TO-DO)
+**8. Run automated tests**
 
 ```bash
 make test
