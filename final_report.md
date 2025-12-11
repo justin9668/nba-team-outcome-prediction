@@ -1,8 +1,8 @@
 # NBA Team Outcome Prediction Project - Final Report
 
-## Presentation (TO-DO)
+## Presentation
 
-[![Watch the presentation](https://img.youtube.com/vi/[REPLACE]/0.jpg)](https://www.youtube.com/watch?v=[REPLACE)
+[![Watch the presentation](https://img.youtube.com/vi/WuigKuQNufc/0.jpg)](https://www.youtube.com/watch?v=WuigKuQNufc)
 
 ## How to Build and Run the Code
 
